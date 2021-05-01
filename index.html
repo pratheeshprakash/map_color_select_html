@@ -67,9 +67,9 @@
             var o = document.getElementById('obstacleHex').value
             var u = document.getElementById('unexploredHex').value
 
-            var freeSpace=hexToRgb(f);
-            var Obstacle=hexToRgb(o);
-            var unExplored=hexToRgb(u);
+            var freeSpace = hexToRgb(f);
+            var Obstacle = hexToRgb(o);
+            var unExplored = hexToRgb(u);
 
             var c = document.getElementById("myCanvas");
             var ctx = c.getContext("2d");
@@ -78,29 +78,26 @@
             c.height = img.height
             ctx.drawImage(img, 0, 0);
             var imgData = ctx.getImageData(0, 0, c.width, c.height);
-            // invert colors
+            // change  colors
             var i;
             for (i = 0; i < imgData.data.length; i += 4) {
-                if(imgData.data[i] ===255)
-                {
-                imgData.data[i] = freeSpace.r;
-                imgData.data[i + 1] = freeSpace.g;
-                imgData.data[i + 2] = freeSpace.b;
-                imgData.data[i + 3] = 255;
+                if (imgData.data[i] >= 200) {
+                    imgData.data[i] = freeSpace.r;
+                    imgData.data[i + 1] = freeSpace.g;
+                    imgData.data[i + 2] = freeSpace.b;
+                    imgData.data[i + 3] = 255;
                 }
-                else if(imgData.data[i] ===127)
-                {
-                imgData.data[i] = unExplored.r;
-                imgData.data[i + 1] = unExplored.g;
-                imgData.data[i + 2] = unExplored.b;
-                imgData.data[i + 3] = 255;
+                else if (imgData.data[i] >= 100 && imgData.data[i] <= 199 ) {
+                    imgData.data[i] = unExplored.r;
+                    imgData.data[i + 1] = unExplored.g;
+                    imgData.data[i + 2] = unExplored.b;
+                    imgData.data[i + 3] = 255;
                 }
-                else if(imgData.data[i] ===0)
-                {
-                imgData.data[i] = Obstacle.r;
-                imgData.data[i + 1] = Obstacle.g;
-                imgData.data[i + 2] = Obstacle.b;
-                imgData.data[i + 3] = 255;
+                else if (imgData.data[i] == 0) {
+                    imgData.data[i] = Obstacle.r;
+                    imgData.data[i + 1] = Obstacle.g;
+                    imgData.data[i + 2] = Obstacle.b;
+                    imgData.data[i + 3] = 255;
                 }
             }
             ctx.putImageData(imgData, 0, 0);
