@@ -1,44 +1,105 @@
 <!DOCTYPE html>
 <html>
 
-<body>
+<body onload="init()">
 
-    <div id='imageContainer' style="display: flex; justify-content: space-between;" >
+    <div id='imageContainer' style="display: flex; justify-content: space-between;">
         <div>
             <h1 style="text-align: center;">ORIGINAL MAP</h1>
-            <img id="map" src="./maps/house1.png" width="500px">
+            <img id="map" src="./maps/house1.png">
 
         </div>
-        <!-- <div><input type="color" id="freespace" value="#CFE2ED">freespace<input type="text" id="freespaceHex"
-                value=$freespace.value readonly>
-            <input type="color" id="obstacle" value="#637885">obstacle<input type="text" id="obstacleHex"
-                value=#obstacle.value readonly>
+        <div style="position: absolute; top: 100px; left: 50px;"><input type="color" id="freespace"
+                value="#CFE2ED">freespace<input type="text" id="freespaceHex" readonly>
+            <input type="color" id="obstacle" value="#637885">obstacle<input type="text" id="obstacleHex" readonly>
             <input type="color" id="unexplored" value="#f2f2f2">Unexplored<input type="text" id="unexploredHex"
-                value=#unexplored.value readonly>
-        </div> -->
-        <div>
+                unexplored.value readonly>
+        </div>
+        <div width='200'>
             <h1 style="text-align: center;">NEW MAP</h1>
-            <canvas id="myCanvas" width="500px" style="border:1px solid #db1010;">
+            <canvas id="myCanvas" style="border:1px solid #db1010;">
                 Your browser does not support the HTML5 canvas tag.</canvas>
         </div>
+
     </div>
+    <button style="position: absolute; top: 150px; left: 50px;" onclick="clicked()">click</button>
     <script>
-       document.getElementById("map").onload = function() {
-  var c = document.getElementById("myCanvas");
-  var ctx = c.getContext("2d");
-  var img = document.getElementById("map");
-  ctx.drawImage(img, 0, 0);
-  var imgData = ctx.getImageData(0, 0, c.width, c.height);
-  // invert colors
-  var i;
-  for (i = 0; i < imgData.data.length; i += 4) {
-    imgData.data[i] = 255 - imgData.data[i];
-    imgData.data[i+1] = 255 - imgData.data[i+1];
-    imgData.data[i+2] = 255 - imgData.data[i+2];
-    imgData.data[i+3] = 255;
-  }
-  ctx.putImageData(imgData, 0, 0);
-};
+        function init() {
+            document.getElementById('freespaceHex').value = document.getElementById('freespace').value
+            document.getElementById('obstacleHex').value = document.getElementById('obstacle').value
+            document.getElementById('unexploredHex').value = document.getElementById('unexplored').value
+        };
+        // document.getElementById('freespaceHex').value=document.getElementById('freespace').value
+
+        document.getElementById("freespace").onchange = function () {
+            document.getElementById('freespaceHex').value = document.getElementById('freespace').value
+        }
+
+        document.getElementById("obstacle").onchange = function () {
+            document.getElementById('obstacleHex').value = document.getElementById('obstacle').value
+        }
+
+        document.getElementById("unexplored").onchange = function () {
+            document.getElementById('unexploredHex').value = document.getElementById('unexplored').value
+        }
+
+        // document.getElementById("map").onload = function () {
+        //     var c = document.getElementById("myCanvas");
+        //     var ctx = c.getContext("2d");
+        //     var img = document.getElementById("map");
+        //     c.width = img.width
+        //     c.height = img.height
+        //     ctx.drawImage(img, 0, 0);
+        //     var imgData = ctx.getImageData(0, 0, c.width, c.height);
+        //     // invert colors
+        //     var i;
+        //     for (i = 0; i < imgData.data.length; i += 4) {
+        //         imgData.data[i] = 255 - imgData.data[i];
+        //         imgData.data[i + 1] = 255 - imgData.data[i + 1];
+        //         imgData.data[i + 2] = 255 - imgData.data[i + 2];
+        //         imgData.data[i + 3] = 255;
+        //     }
+        //     ctx.putImageData(imgData, 0, 0);
+        // };
+
+        function clicked() {
+            var f = document.getElementById('freespaceHex').value
+            var o = document.getElementById('obstacleHex').value
+            var u = document.getElementById('unexploredHex').value
+
+            var freeSpace=hexToRgb(f);
+            var Obstacle=hexToRgb(o);
+            var unExplored=hexToRgb(u);
+
+            var c = document.getElementById("myCanvas");
+            var ctx = c.getContext("2d");
+            var img = document.getElementById("map");
+            c.width = img.width
+            c.height = img.height
+            ctx.drawImage(img, 0, 0);
+            var imgData = ctx.getImageData(0, 0, c.width, c.height);
+            // invert colors
+            var i;
+            for (i = 0; i < imgData.data.length; i += 4) {
+                if(imgData.data[i] ===127)
+                imgData.data[i] = unExplored.r;
+                imgData.data[i + 1] = unExplored.g;
+                imgData.data[i + 2] = unExplored.b;
+                imgData.data[i + 3] = 255;
+            }
+            ctx.putImageData(imgData, 0, 0);
+
+        }
+
+
+        function hexToRgb(hex) {
+            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
     </script>
 
 </body>
