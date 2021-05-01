@@ -2,17 +2,24 @@
 <html>
 <body>
 
-<img id="scream" src="img_the_scream.jpg" alt="The Scream" width="220" height="277">
-<canvas id="myCanvas" width="220" height="277" style="border:1px solid #d3d3d3;">
+    <div id='imageContainer' style="display: flex;"><p>ORIGINAL MAP</p><P>COLORED MAP</P><img id="map" src="./maps/house1.png" >
+<canvas id="myCanvas" style="border:1px solid #d3d3d3;">
 Your browser does not support the HTML5 canvas tag.</canvas>
-  <div><input type="color" id="favcolor" name="favcolor" value="#ff0000"></div>
+  <div><input type="color" id="freespace" value="#ff0000">
+    <input type="color" id="obstacle" value="#ff0000">
+    <input type="color" id="unexplored" value="#ff0000">
+</div>
+</div>
 <script>
-document.getElementById("scream").onload = function() {
+document.getElementById("map").onload = function() {
     var c = document.getElementById("myCanvas");
   var ctx = c.getContext("2d");
-  var img = document.getElementById("scream");
+  var img = document.getElementById("map");
+  c.width=img.width=(window.innerWidth/2.5)
+  c.height=img.height
   ctx.drawImage(img, 0, 0);
   var imgData = ctx.getImageData(0, 0, c.width, c.height);
+ 
   // invert colors
   var i;
   for (i = 0; i < imgData.data.length; i += 4) {
