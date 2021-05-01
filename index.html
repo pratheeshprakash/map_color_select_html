@@ -81,11 +81,27 @@
             // invert colors
             var i;
             for (i = 0; i < imgData.data.length; i += 4) {
-                if(imgData.data[i] ===127)
+                if(imgData.data[i] ===255)
+                {
+                imgData.data[i] = freeSpace.r;
+                imgData.data[i + 1] = freeSpace.g;
+                imgData.data[i + 2] = freeSpace.b;
+                imgData.data[i + 3] = 255;
+                }
+                else if(imgData.data[i] ===127)
+                {
                 imgData.data[i] = unExplored.r;
                 imgData.data[i + 1] = unExplored.g;
                 imgData.data[i + 2] = unExplored.b;
                 imgData.data[i + 3] = 255;
+                }
+                else if(imgData.data[i] ===0)
+                {
+                imgData.data[i] = Obstacle.r;
+                imgData.data[i + 1] = Obstacle.g;
+                imgData.data[i + 2] = Obstacle.b;
+                imgData.data[i + 3] = 255;
+                }
             }
             ctx.putImageData(imgData, 0, 0);
 
