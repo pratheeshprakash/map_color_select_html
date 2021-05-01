@@ -81,7 +81,7 @@
             // change  colors
             var i;
             for (i = 0; i < imgData.data.length; i += 4) {
-                if (imgData.data[i] >= 200) {
+                if (imgData.data[i] >= 200 && imgData.data[i] <=250) {
                     imgData.data[i] = freeSpace.r;
                     imgData.data[i + 1] = freeSpace.g;
                     imgData.data[i + 2] = freeSpace.b;
