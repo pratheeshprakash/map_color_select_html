@@ -82,30 +82,24 @@
             var i;
             for (i = 0; i < imgData.data.length; i += 4) {
                 if (imgData.data[i] >=245) {
-                    // imgData.data[i] = freeSpace.r;
-                    // imgData.data[i + 1] = freeSpace.g;
-                    // imgData.data[i + 2] = freeSpace.b;
-                    imgData.data[i] = 255;
-                    imgData.data[i + 1] = 0;
-                    imgData.data[i + 2] = 0;
+                    imgData.data[i] = freeSpace.r;
+                    imgData.data[i + 1] = freeSpace.g;
+                    imgData.data[i + 2] = freeSpace.b;
+                    
                     imgData.data[i + 3] = 255;
                 }
                 else if (imgData.data[i] ==205) {
-                    // imgData.data[i] = unExplored.r;
-                    // imgData.data[i + 1] = unExplored.g;
-                    // imgData.data[i + 2] = unExplored.b;
-                    imgData.data[i] = 0;
-                    imgData.data[i + 1] = 255;
-                    imgData.data[i + 2] = 0;
+                    imgData.data[i] = unExplored.r;
+                    imgData.data[i + 1] = unExplored.g;
+                    imgData.data[i + 2] = unExplored.b;
+                    
                     imgData.data[i + 3] = 255;
                 }
                 else if (imgData.data[i] == 0) {
-                    // imgData.data[i] = Obstacle.r;
-                    // imgData.data[i + 1] = Obstacle.g;
-                    // imgData.data[i + 2] = Obstacle.b;
-                    imgData.data[i] = 0;
-                    imgData.data[i + 1] = 0;
-                    imgData.data[i + 2] = 255;
+                    imgData.data[i] = Obstacle.r;
+                    imgData.data[i + 1] = Obstacle.g;
+                    imgData.data[i + 2] = Obstacle.b;
+                    
                     imgData.data[i + 3] = 255;
                 }
             }
