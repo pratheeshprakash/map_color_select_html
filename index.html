@@ -5,10 +5,10 @@
 <img id="scream" src="img_the_scream.jpg" alt="The Scream" width="220" height="277">
 <canvas id="myCanvas" width="220" height="277" style="border:1px solid #d3d3d3;">
 Your browser does not support the HTML5 canvas tag.</canvas>
-
+  <div><input type="color" id="favcolor" name="favcolor" value="#ff0000"></div>
 <script>
 document.getElementById("scream").onload = function() {
-  var c = document.getElementById("myCanvas");
+    var c = document.getElementById("myCanvas");
   var ctx = c.getContext("2d");
   var img = document.getElementById("scream");
   ctx.drawImage(img, 0, 0);
