@@ -2,7 +2,17 @@
 <html>
 
 <body onload="init()">
-
+    <select name="ImageFile">
+        <option value="">- Select Image -
+        <?php 
+        $dirPath = dir('./maps');
+        while (($file = $dirPath->read()) !== false)
+        {
+           echo "<option value=\"" . trim($file) . "\">" . $file . "\n";
+        }
+        $dirPath->close();
+        ?>
+        </select>
     <div id='imageContainer' style="display: flex; justify-content: space-between;">
         <div>
             <h1 style="text-align: center;">ORIGINAL MAP</h1>
