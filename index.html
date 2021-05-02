@@ -9,18 +9,32 @@
             <img id="map" src="./maps/house1.png">
 
         </div>
-        <div style="position: absolute; top: 100px; left: 50px;"><input type="color" id="freespace"
-                value="#CFE2ED">freespace<input type="text" id="freespaceHex" readonly>
-            <input type="color" id="obstacle" value="#637885">obstacle<input type="text" id="obstacleHex" readonly>
-            <input type="color" id="unexplored" value="#f2f2f2">Unexplored<input type="text" id="unexploredHex"
-                unexplored.value readonly>
+        <div style="position: absolute; top: 100px; left: 50px;border:2px solid #0a3de6;" width=100px>
+            <div><input type="color" id="freespace" value="#CFE2ED">freespace<input type="text" id="freespaceHex"
+                    readonly></div>
+            <div> <input type="color" id="obstacle" value="#637885">obstacle<input type="text" id="obstacleHex"
+                    readonly></div>
+            <div><input type="color" id="unexplored" value="#f2f2f2">Unexplored<input type="text" id="unexploredHex"
+                    unexplored.value readonly></div>
+            <div>
+                <p>Unexplored area Alpha value</p>
+                <input type="range" id="unexploreAlpha" min="1" max="255" value="100">
+                <input type="text" id="unexploredAlp" unexploredAlp.value readonly>
+            </div>
         </div>
         <div width='200'>
             <h1 style="text-align: center;">NEW MAP</h1>
             <canvas id="myCanvas" style="border:1px solid #db1010;">
                 Your browser does not support the HTML5 canvas tag.</canvas>
+            <div id='gridcontainer' style="z-index: 3;">
+                <img src="./images/BGGrid1-02.svg" style="position: absolute;
+                top: 85px;z-index: -1;">
+                <img src="./images/Robot.svg" style="position: absolute;
+                top: 700px; left: 500px;">
+                <img src="./images/Robot.svg" style="position: absolute;
+                top: 700px; left: 1310px;">
+            </div>
         </div>
-
     </div>
     <!-- <button style="position: absolute; top: 150px; left: 50px;" onclick="clicked()">Render</button> -->
     <script>
@@ -28,6 +42,7 @@
             document.getElementById('freespaceHex').value = document.getElementById('freespace').value
             document.getElementById('obstacleHex').value = document.getElementById('obstacle').value
             document.getElementById('unexploredHex').value = document.getElementById('unexplored').value
+            document.getElementById('unexploredAlp').value = document.getElementById('unexploreAlpha').value
             colorChange();
         };
         // document.getElementById('freespaceHex').value=document.getElementById('freespace').value
@@ -46,6 +61,12 @@
             document.getElementById('unexploredHex').value = document.getElementById('unexplored').value
             colorChange();
         }
+
+        document.getElementById("unexploreAlpha").onchange = function () {
+            document.getElementById('unexploredAlp').value = document.getElementById('unexploreAlpha').value
+            colorChange();
+        }
+
 
         // document.getElementById("map").onload = function () {
         //     var c = document.getElementById("myCanvas");
@@ -70,6 +91,7 @@
             var f = document.getElementById('freespaceHex').value
             var o = document.getElementById('obstacleHex').value
             var u = document.getElementById('unexploredHex').value
+            var uA = document.getElementById('unexploreAlpha').value
 
             var freeSpace = hexToRgb(f);
             var Obstacle = hexToRgb(o);
@@ -85,25 +107,25 @@
             // change  colors
             var i;
             for (i = 0; i < imgData.data.length; i += 4) {
-                if (imgData.data[i] >=245) {
+                if (imgData.data[i] >= 245) {
                     imgData.data[i] = freeSpace.r;
                     imgData.data[i + 1] = freeSpace.g;
                     imgData.data[i + 2] = freeSpace.b;
-                    
+
                     imgData.data[i + 3] = 255;
                 }
-                else if (imgData.data[i] ==205) {
+                else if (imgData.data[i] == 205) {
                     imgData.data[i] = unExplored.r;
                     imgData.data[i + 1] = unExplored.g;
                     imgData.data[i + 2] = unExplored.b;
-                    
-                    imgData.data[i + 3] = 255;
+
+                    imgData.data[i + 3] = uA;
                 }
                 else if (imgData.data[i] == 0) {
                     imgData.data[i] = Obstacle.r;
                     imgData.data[i + 1] = Obstacle.g;
                     imgData.data[i + 2] = Obstacle.b;
-                    
+
                     imgData.data[i + 3] = 255;
                 }
             }
